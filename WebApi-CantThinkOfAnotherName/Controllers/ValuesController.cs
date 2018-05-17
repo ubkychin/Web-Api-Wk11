@@ -5,35 +5,45 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace WebApi_CantThinkOfAnotherName.Controllers
-{
-    public class ValuesController : ApiController
-    {
+namespace WebApi_CantThinkOfAnotherName.Controllers {
+    public static class Count {
+        public static int dracula = 0;
+    }
+
+    public static class NamesList {
+        public static List<string> Names = new List<string>();
+    }
+
+    public class ValuesController : ApiController {
         // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
+        public string Get() {
+
+            string output = "";
+
+            foreach(var name in NamesList.Names) {
+                output += name + "\n";
+
+            }
+
+            return output;
         }
 
         // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
+        public string Get(string name) {
+            NamesList.Names.Add(name);
+            return name + " added to the names list";
         }
 
         // POST api/values
-        public void Post([FromBody]string value)
-        {
+        public void Post([FromBody]string value) {
         }
 
         // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
-        {
+        public void Put(int id, [FromBody]string value) {
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
-        {
+        public void Delete(int id) {
         }
     }
 }
